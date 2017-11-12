@@ -23,5 +23,5 @@ class Database(object):
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
-    def find_post(collection, query):
-        return Database.DATABASE[collection].find(query)
+    def find_one(collection, query):
+        return Database.DATABASE[collection].find_one(query)

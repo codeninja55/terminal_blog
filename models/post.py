@@ -31,7 +31,7 @@ class Post(object):
 
     @classmethod
     def from_database(cls, post_id):
-        post_data = Database.find_post(collection='posts', query={'post_id': post_id})
+        post_data = Database.find_one(collection='posts', query={'post_id': post_id})
         return cls(blog_id=post_data['blog_id'], title=post_data['title'],
                    content=post_data['content'], author=post_data['author'],
                    date=post_data['date'], post_id=post_data['post_id'])
