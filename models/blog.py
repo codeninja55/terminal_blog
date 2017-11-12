@@ -17,8 +17,8 @@ class Blog(object):
     def new_post(self):
         title = input("Enter post title: ")
         content = input("Enter post content: ")
-        date = input("Enter post date, or leave blank for today (DDMMYYYY)")
-        date = datetime.datetime.utcnow() if "" else datetime.datetime.strptime(date, "%d%m%Y")
+        date_str = input("Enter post date, or leave blank for today (DDMMYYYY)")
+        date = datetime.datetime.utcnow() if not date_str else datetime.datetime.strptime(date_str, "%d%m%Y")
 
         post = Post(blog_id=self.blog_id, title=title, content=content,
                     author=self.author, date=date)
@@ -39,7 +39,7 @@ class Blog(object):
 
     @classmethod
     def get_from_database(cls, blog_id):
-        blog_data = Database.find_post(collection='blogs', query={'blog_id': blog_id})
+        blog_data = Database.find_one(collection='blogs', query={'blog_id': blog_id})
 
         return cls(author=blog_data['author'], title=blog_data['title'],
-                   description=blog_data['description'], id=blog_data['blog_id'])
+                   description=blog_data['description'], blog_id=blog_data['blog_id'])
